@@ -12,8 +12,6 @@ import {
   HabitExploredata,
   LearnCarddata,
 } from '../constants/data';
-import {useHabitude} from '../../Context/HabbitudeContext';
-import {useAddress} from '../../Context/AddressContext';
 
 // create a component
 const Explore = () => {
