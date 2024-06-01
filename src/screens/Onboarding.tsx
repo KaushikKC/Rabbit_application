@@ -24,6 +24,7 @@ import {web3auth} from '../../App';
 import {LOGIN_PROVIDER} from '@web3auth/react-native-sdk';
 import {useAddress} from '../../Context/AddressContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {W3mButton, useWeb3Modal} from '@web3modal/wagmi-react-native';
 
 type storageProp = {
   address: string;
@@ -35,6 +36,7 @@ const Onboarding = () => {
   const [email, setEmail] = useState<string>('');
   const ref = React.useRef<FlatList>(null);
   const {setAddress, setKeypair} = useAddress();
+  const {open, close} = useWeb3Modal();
   const scheme = 'web3authrnbareauth0example'; // Or your desired app redirection scheme
   const resolvedRedirectUrl = `${scheme}://openlogin`;
   const updateCurrentSlideIndex = (
@@ -76,41 +78,9 @@ const Onboarding = () => {
   };
 
   const login = async () => {
-    try {
-      if (!web3auth.ready) {
-        return;
-      }
-      if (!email) {
-        return;
-      }
-      await web3auth.login({
-        loginProvider: LOGIN_PROVIDER.EMAIL_PASSWORDLESS,
-        redirectUrl: resolvedRedirectUrl,
-        extraLoginOptions: {
-          login_hint: email,
-        },
-      });
-
-      if (web3auth.privKey) {
-        // Create a Uint8Arrray from private key which is in hex format
-        const privateKeyUint8Array = new Uint8Array(
-          web3auth.privKey
-            .match(/.{1,2}/g)!
-            .map((byte: any) => parseInt(byte, 16)),
-        );
-
-        // Create an instance of the Sui local key pair manager
-        const keyPair = Ed25519Keypair.fromSecretKey(privateKeyUint8Array);
-        setKeypair(keyPair);
-
-        const address = keyPair.toSuiAddress();
-        await storeCredentials(address, web3auth.privKey);
-        // console.log('working');
-        setAddress(address);
-        navigation.navigate('Bottom');
-      }
-    } catch (e: any) {
-      console.error(e.message);
+    await open();
+    if (address) {
+      navigation.navigate('CreateAccount');
     }
   };
 
