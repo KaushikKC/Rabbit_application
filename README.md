@@ -1,6 +1,17 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# REPEAT
 
-# Getting Started
+The Habit Tracker app enables personalized habit creation, tracking, and challenges with reminders, data integration, leaderboards, and rewards to foster motivation and accountability.
+
+## Contract
+
+Address : https://sepolia.scrollscan.com/address/0x30c0443fc0a13c241f463c955189d5b942582d8c
+
+## Demo
+
+link : https://youtu.be/_GHWPX1wK7w
+
+
+## Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
